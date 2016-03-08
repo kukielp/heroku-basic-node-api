@@ -2,12 +2,9 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var alphabet = require('./routes/alphabet');
-
-var request = require('request');
-var Promise = require('bluebird');
-var rp = require('request-promise');
+var version = require('./routes/version');
 
 var app = express();
 
@@ -19,7 +16,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/version', version);
 app.use('/alphabet', alphabet);
 
 /// catch 404 and forwarding to error handler
